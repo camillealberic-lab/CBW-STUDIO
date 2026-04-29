@@ -1,26 +1,148 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-noir: #1a1a17;
+  --color-creme: #f0eae0;
+  --color-jaune: #f6f5ae;
+  --color-blanc: #fafaf8;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f0eae0;
+  color: #1a1a17;
+  font-family: var(--font-geologica), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #f6f5ae;
+  color: #1a1a17;
+}
+
+.font-playfair {
+  font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Primary CTA button hover ── */
+.btn-primary {
+  transition: filter 0.2s ease;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  filter: brightness(0.88);
+}
+
+/* ── Outline CTA button hover — subtle yellow fill ── */
+.btn-outline {
+  transition: background-color 0.25s ease;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  background-color: rgba(246, 245, 174, 0.15) !important;
+}
+
+/* ── Text nav links — left-to-right underline ── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* ── Responsive layout helpers ── */
+
+/* Desktop left-indent (right-column text alignment) */
+.indent-right-401 {
+  margin-left: 401px;
+}
+
+/* Fixed-width columns */
+.col-401 {
+  width: 401px;
+  flex-shrink: 0;
+}
+.col-321 {
+  width: 321px;
+  flex-shrink: 0;
+}
+
+/* Hero sections */
+.page-hero {
+  padding: 130px 50px 48px;
+}
+
+/* ── MOBILE (≤ 767px) ── */
+@media (max-width: 767px) {
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Hero sections */
+  .page-hero {
+    padding: 88px 20px 32px;
+  }
+
+  /* Section horizontal padding */
+  .px-mob {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Remove desktop left indent */
+  .indent-right-401 {
+    margin-left: 0;
+  }
+
+  /* Remove desktop right padding */
+  .pr-0-mob {
+    padding-right: 0 !important;
+  }
+
+  /* Stack flex columns */
+  .col-mob {
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+  /* Make fixed-width columns full-width */
+  .col-401,
+  .col-321 {
+    width: 100%;
+    flex-shrink: 1;
+  }
+
+  /* Grids to single column */
+  .grid-1-mob {
+    grid-template-columns: 1fr !important;
+  }
 }
