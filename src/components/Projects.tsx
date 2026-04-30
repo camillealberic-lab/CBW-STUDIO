@@ -117,6 +117,7 @@ export default function Projects() {
               fontSize: 'clamp(20px, 2.3vw, 35px)',
               color: '#1A1A17',
               marginTop: 0,
+              marginLeft: '50px',
             }}
           >
             à transformer leur savoir-faire en chiffre d&apos;affaires grâce à des
