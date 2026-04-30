@@ -170,8 +170,8 @@ export default function Projects() {
 
       {/* ── MOBILE: 3 images in normal flow, triggered by IntersectionObserver ── */}
       <div
-        className="md:hidden bg-creme"
-        style={{ padding: '32px 20px 100px', display: 'flex', flexDirection: 'column', gap: 20 }}
+        className="flex flex-col md:hidden bg-creme"
+        style={{ padding: '32px 20px 100px', gap: 20 }}
       >
         {PROJECTS.slice(0, 3).map((project, i) => (
           <div

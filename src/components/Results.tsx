@@ -73,7 +73,7 @@ export default function Results() {
       style={{ height: `calc(100vh + ${SCROLL_DIST}px)` }}
     >
       <div
-        className="sticky top-0 flex flex-col md:flex-row bg-creme"
+        className="sticky top-0 flex flex-col md:flex-row bg-creme results-sticky"
         style={{ height: '100vh' }}
       >
 

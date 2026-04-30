@@ -90,7 +90,15 @@ body {
 /* Results section — left/top panel */
 .results-panel {
   width: 401px;
-  padding: 0 28px 0 50px;
+  padding: 0 28px 0 0;
+}
+
+/* Results sticky container — desktop spacing only */
+@media (min-width: 768px) {
+  .results-sticky {
+    padding: 0 50px;
+    gap: 72px;
+  }
 }
 
 /* Fixed-width columns */
