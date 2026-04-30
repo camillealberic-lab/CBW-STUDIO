@@ -57,7 +57,7 @@ const LABEL_STYLE = {
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const mobileCardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const mobileImgRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -67,43 +67,53 @@ export default function Projects() {
   // Desktop: horizontal translation
   const x = useTransform(scrollYProgress, [0, 0.08, 1], [0, 0, -SCROLL_DIST])
 
-  // Mobile: crossfade between cards via direct DOM updates
+  // Mobile: IntersectionObserver — each image fades+slides in as it enters viewport
   useEffect(() => {
-    return scrollYProgress.on('change', (v) => {
-      const raw = v * (PROJECTS.length - 1)
-      mobileCardRefs.current.forEach((el, i) => {
-        if (!el) return
-        const dist = Math.abs(i - raw)
-        el.style.opacity = String(Math.max(0, 1 - dist))
-        el.style.transform = `translateY(${(i - raw) * 8}%)`
-      })
+    const observers = mobileImgRefs.current.map((el) => {
+      if (!el) return null
+      el.style.opacity = '0'
+      el.style.transform = 'translateY(28px)'
+      el.style.transition = 'opacity 0.65s ease, transform 0.65s ease'
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            el.style.opacity = '1'
+            el.style.transform = 'translateY(0)'
+            obs.disconnect()
+          }
+        },
+        { threshold: 0.15 }
+      )
+      obs.observe(el)
+      return obs
     })
-  }, [scrollYProgress])
+    return () => observers.forEach((obs) => obs?.disconnect())
+  }, [])
 
   return (
     <div
       ref={containerRef}
       id="projets"
-      className="bg-creme"
+      className="bg-creme mob-height-auto"
       style={{
         height: `calc(100vh + ${SCROLL_DIST}px)`,
         borderRadius: '40px 40px 0 0',
       }}
     >
+      {/* Sticky container — desktop: 100vh, mobile: auto (text only) */}
       <div
-        className="sticky top-0 overflow-hidden flex flex-col bg-creme"
-        style={{ height: '100vh' }}
+        className="md:sticky md:top-0 overflow-hidden flex flex-col bg-creme md:h-screen"
       >
-        {/* Text header — responsive */}
+        {/* Text header */}
         <div
-          className="px-mob"
+          className="px-mob pr-0-mob"
           style={{ paddingTop: '110px', paddingBottom: '20px', flexShrink: 0 }}
         >
           <p
-            className="font-medium leading-tight indent-right-401"
+            className="font-medium leading-tight indent-right-401 mob-ml-50"
             style={{
               fontFamily: FONT,
-              fontSize: 'clamp(20px, 2.3vw, 35px)',
+              fontSize: 'clamp(24px, 2.3vw, 35px)',
               color: '#1A1A17',
               marginBottom: 0,
             }}
@@ -111,10 +121,10 @@ export default function Projects() {
             Nous aidons les artisans et producteurs locaux
           </p>
           <p
-            className="font-medium leading-tight"
+            className="font-medium leading-tight desk-ml-50 mob-mt-16"
             style={{
               fontFamily: FONT,
-              fontSize: 'clamp(20px, 2.3vw, 35px)',
+              fontSize: 'clamp(24px, 2.3vw, 35px)',
               color: '#1A1A17',
               marginTop: 0,
             }}
@@ -156,41 +166,33 @@ export default function Projects() {
             ))}
           </motion.div>
         </div>
+      </div>
 
-        {/* ── MOBILE: vertical crossfade between cards ── */}
-        <div
-          className="md:hidden flex-1 flex items-center"
-          style={{ padding: '0 20px 36px' }}
-        >
+      {/* ── MOBILE: 3 images in normal flow, triggered by IntersectionObserver ── */}
+      <div
+        className="flex flex-col md:hidden bg-creme"
+        style={{ padding: '32px 20px 100px', gap: 20 }}
+      >
+        {PROJECTS.slice(0, 3).map((project, i) => (
           <div
+            key={project.id}
+            ref={(el) => { mobileImgRefs.current[i] = el }}
             style={{
               width: '100%',
-              position: 'relative',
               aspectRatio: `${CARD_W} / ${CARD_H}`,
+              borderRadius: CARD_RADIUS,
+              overflow: 'hidden',
+              position: 'relative',
+              backgroundColor: 'rgba(26,26,23,0.08)',
             }}
           >
-            {PROJECTS.map((project, i) => (
-              <div
-                key={project.id}
-                ref={(el) => { mobileCardRefs.current[i] = el }}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  borderRadius: CARD_RADIUS,
-                  overflow: 'hidden',
-                  opacity: i === 0 ? 1 : 0,
-                  backgroundColor: 'rgba(26,26,23,0.08)',
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={project.img} alt="" style={IMG_STYLE} />
-                <div style={OVERLAY_STYLE}>
-                  <p style={LABEL_STYLE}>{LABEL}</p>
-                </div>
-              </div>
-            ))}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={project.img} alt="" style={IMG_STYLE} />
+            <div style={OVERLAY_STYLE}>
+              <p style={LABEL_STYLE}>{LABEL}</p>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   )

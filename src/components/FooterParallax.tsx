@@ -17,7 +17,7 @@ export default function FooterParallax({ children }: { children: React.ReactNode
     offset: ['start end', 'end end'],
   })
 
-  const y = useTransform(scrollYProgress, [0.05, 1], [150, 0])
+  const y = useTransform(scrollYProgress, [0, 1], [150, 0])
 
   return (
     <>

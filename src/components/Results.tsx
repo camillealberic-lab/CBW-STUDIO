@@ -26,10 +26,8 @@ const GPG         = GROUPS[0].words.length   // 4
 const ITEM_H      = 72
 const SCROLL_DIST = (TOTAL - 1) * 150        // 1650px
 
-// Lines between groups — [3.5, 7.5]
 const DIVIDERS = [1, 2].map(g => g * GPG - 0.5)
 
-// Tight center band — edges fade in/out over 18% leaving ~4 words visible
 const MASK = 'linear-gradient(to bottom, transparent 0%, transparent 18%, black 50%, transparent 82%, transparent 100%)'
 
 export default function Results() {
@@ -47,13 +45,11 @@ export default function Results() {
     let lastGroup = 0
 
     return scrollYProgress.on('change', (v) => {
-      const raw = v * (TOTAL - 1)
+      const raw = Math.max(0, (v - 0.05) / 0.95) * (TOTAL - 1)
 
-      // Direct DOM — 60 fps, no React re-render, no spring
       wordEls.current.forEach((el, i) => {
         if (!el) return
         const yOffset = (i - raw) * ITEM_H
-        // Words below center slide in from the right
         const xOffset = yOffset > 0 ? Math.min(yOffset * 0.3, 70) : 0
         el.style.transform = `translateY(calc(-50% + ${yOffset}px)) translateX(${xOffset}px)`
       })
@@ -61,7 +57,6 @@ export default function Results() {
         if (el) el.style.transform = `translateY(calc(-50% + ${(DIVIDERS[i] - raw) * ITEM_H}px))`
       })
 
-      // Left panel update only on group change
       const word  = Math.min(TOTAL - 1, Math.max(0, Math.round(raw)))
       const group = Math.floor(word / GPG)
       if (group !== lastGroup) {
@@ -78,24 +73,21 @@ export default function Results() {
       style={{ height: `calc(100vh + ${SCROLL_DIST}px)` }}
     >
       <div
-        className="sticky top-0 flex bg-creme"
-        style={{ height: '100vh', padding: '0 50px', gap: '72px' }}
+        className="sticky top-0 flex flex-col md:flex-row bg-creme results-sticky"
+        style={{ height: '100vh' }}
       >
 
-        {/* Left column */}
+        {/* Top (mobile) / Left (desktop) */}
         <div
-          className="flex flex-col justify-center shrink-0"
-          style={{ width: '401px', paddingRight: '28px' }}
+          className="flex flex-col justify-start md:justify-center shrink-0 results-panel"
         >
-          {/* clip-path instead of overflow:hidden — extends right boundary for italic overhang
-              without reducing the text content width */}
           <div style={{ clipPath: 'inset(-8px -32px -28px 0)' }}>
             <AnimatePresence mode="wait">
               <motion.span
                 key={activeGroup}
                 className="font-playfair italic inline-block"
                 style={{
-                  fontSize: 'clamp(3rem, 5vw, 4.5rem)',
+                  fontSize: 'clamp(2.8rem, 5vw, 4.5rem)',
                   color: '#1A1A17',
                   lineHeight: 1.05,
                 }}
@@ -116,7 +108,7 @@ export default function Results() {
               fontSize: '14px',
               color: '#1A1A17',
               marginTop: '20px',
-              marginBottom: '36px',
+              marginBottom: '24px',
             }}
           >
             <div style={{ overflow: 'hidden', height: '1.25em' }}>
@@ -150,7 +142,7 @@ export default function Results() {
           </p>
         </div>
 
-        {/* Right column — gradient-masked word carousel */}
+        {/* Bottom (mobile) / Right (desktop) — gradient-masked word carousel */}
         <div
           className="flex-1 relative overflow-hidden"
           style={{
@@ -158,7 +150,6 @@ export default function Results() {
             WebkitMaskImage: MASK,
           }}
         >
-          {/* Group divider lines */}
           {DIVIDERS.map((boundary, i) => (
             <div
               key={i}
@@ -176,7 +167,6 @@ export default function Results() {
             />
           ))}
 
-          {/* 12 words — DOM-driven */}
           {FLAT.map((word, i) => (
             <div
               key={`${word}-${i}`}
@@ -198,7 +188,7 @@ export default function Results() {
               <span
                 className="font-playfair italic"
                 style={{
-                  fontSize: 'clamp(1.5rem, 2.2vw, 2.4rem)',
+                  fontSize: 'clamp(2rem, 2.2vw, 2.4rem)',
                   color: '#1A1A17',
                   lineHeight: 1,
                   whiteSpace: 'nowrap',

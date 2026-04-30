@@ -26,7 +26,7 @@ export default function Hero() {
         style={{ padding: '0 50px 10vh' }}
       >
         <h1
-          className="text-creme font-bold leading-[1.05] mb-4 md:mb-8 text-center md:text-left"
+          className="text-creme font-bold leading-[1.05] mb-4 md:mb-8 text-left"
           style={{
             fontFamily: 'var(--font-geologica), system-ui, sans-serif',
             fontSize: 'clamp(3.125rem, 7vw, 5.625rem)',
@@ -50,7 +50,7 @@ export default function Hero() {
           </span>
         </h1>
 
-        <div className="flex gap-3 flex-wrap justify-center md:justify-start">
+        <div className="flex gap-3 flex-wrap justify-start">
           <button
             onClick={openCal}
             className="bg-jaune text-noir font-normal rounded-full leading-none btn-primary"
