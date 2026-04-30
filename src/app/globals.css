@@ -82,6 +82,17 @@ body {
   margin-left: 401px;
 }
 
+/* 50px margin on desktop only, 0 on mobile */
+.desk-ml-50 {
+  margin-left: 50px;
+}
+
+/* Results section — left/top panel */
+.results-panel {
+  width: 401px;
+  padding: 0 28px 0 50px;
+}
+
 /* Fixed-width columns */
 .col-401 {
   width: 401px;
@@ -100,11 +111,11 @@ body {
 /* ── MOBILE (≤ 767px) ── */
 @media (max-width: 767px) {
   html {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Hero sections */
@@ -121,6 +132,25 @@ body {
   /* Remove desktop left indent */
   .indent-right-401 {
     margin-left: 0;
+  }
+
+  /* Mobile margin helpers */
+  .mob-ml-50 {
+    margin-left: 50px !important;
+  }
+  .desk-ml-50 {
+    margin-left: 0 !important;
+  }
+
+  /* Override inline height for mobile */
+  .mob-height-auto {
+    height: auto !important;
+  }
+
+  /* Results panel — full width + top padding on mobile */
+  .results-panel {
+    width: 100%;
+    padding: 130px 20px 20px;
   }
 
   /* Remove desktop right padding */
@@ -144,5 +174,16 @@ body {
   /* Grids to single column */
   .grid-1-mob {
     grid-template-columns: 1fr !important;
+  }
+
+  /* Services section — increased top/bottom padding */
+  .mob-services-padding {
+    padding-top: 130px !important;
+    padding-bottom: 160px !important;
+  }
+
+  /* Paragraph gap in Projects */
+  .mob-mt-16 {
+    margin-top: 0 !important;
   }
 }

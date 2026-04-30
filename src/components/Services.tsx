@@ -17,7 +17,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="bg-noir px-mob"
+      className="bg-noir px-mob mob-services-padding"
       style={{ padding: '80px 50px 96px' }}
     >
       <div className="flex gap-20 col-mob pr-0-mob" style={{ paddingRight: '321px' }}>
