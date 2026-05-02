@@ -110,7 +110,7 @@ export default function Projects() {
           style={{ paddingTop: '110px', paddingBottom: '20px', flexShrink: 0 }}
         >
           <p
-            className="font-medium leading-tight indent-right-401 mob-ml-50"
+            className="font-medium leading-tight indent-right-401"
             style={{
               fontFamily: FONT,
               fontSize: 'clamp(24px, 2.3vw, 35px)',

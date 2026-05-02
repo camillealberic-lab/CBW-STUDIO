@@ -76,7 +76,7 @@ export default function Hero() {
       <div className="relative z-10" style={{ height: '88px', flexShrink: 0 }} />
 
       <div
-        className="relative z-10 flex-1 flex flex-col justify-end px-mob"
+        className="relative z-10 flex-1 flex flex-col justify-end px-mob mob-hero-pb"
         style={{ padding: '0 50px 10vh' }}
       >
         <h1
