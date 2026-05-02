@@ -16,6 +16,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [showMobileCta, setShowMobileCta] = useState(false)
+  const [isPastHero, setIsPastHero] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -24,12 +25,11 @@ export default function Navbar() {
       const viewportH = window.innerHeight
       const docH = document.documentElement.scrollHeight
 
-      // On homepage: hide while user is still in Hero (first 100vh)
       const inHero = pathname === '/' && scrollY < viewportH * 0.85
-      // Hide when footer spacer enters viewport (footer becomes visible)
       const inFooter = scrollY + viewportH > docH - 480
 
       setShowMobileCta(!inHero && !inFooter)
+      setIsPastHero(!inHero)
     }
 
     check()
@@ -42,7 +42,10 @@ export default function Navbar() {
       {/* ── DESKTOP ── hidden on mobile ── */}
       <header
         className="hidden md:block fixed top-0 left-0 right-0 z-50 pointer-events-none"
-        style={{ height: '100px', mixBlendMode: 'difference' }}
+        style={{
+          height: '100px',
+          mixBlendMode: isPastHero ? 'difference' : 'normal',
+        }}
       >
         <div
           className="flex items-center h-full"
@@ -51,7 +54,12 @@ export default function Navbar() {
           <a
             href="/"
             className="font-bold leading-none pointer-events-auto"
-            style={{ fontFamily: FONT, fontSize: '30px', color: '#ffffff' }}
+            style={{
+              fontFamily: FONT,
+              fontSize: '30px',
+              color: isPastHero ? '#ffffff' : '#F4EEE4',
+              transition: 'color 0.3s ease',
+            }}
           >
             CBW Studio.
           </a>
@@ -62,7 +70,12 @@ export default function Navbar() {
                 key={href}
                 href={href}
                 className={`font-normal leading-none nav-link${pathname === href ? ' active' : ''}`}
-                style={{ fontFamily: FONT, fontSize: '16px', color: '#ffffff' }}
+                style={{
+                  fontFamily: FONT,
+                  fontSize: '16px',
+                  color: isPastHero ? '#ffffff' : '#F4EEE4',
+                  transition: 'color 0.3s ease',
+                }}
               >
                 {label}
               </a>
@@ -86,7 +99,10 @@ export default function Navbar() {
       {/* ── MOBILE HEADER ── */}
       <header
         className="md:hidden fixed top-0 left-0 right-0 z-50"
-        style={{ height: '64px', mixBlendMode: 'difference' }}
+        style={{
+          height: '64px',
+          mixBlendMode: isPastHero ? 'difference' : 'normal',
+        }}
       >
         <div
           className="flex items-center justify-between h-full"
@@ -95,7 +111,12 @@ export default function Navbar() {
           <a
             href="/"
             className="font-bold leading-none"
-            style={{ fontFamily: FONT, fontSize: '22px', color: '#ffffff' }}
+            style={{
+              fontFamily: FONT,
+              fontSize: '22px',
+              color: isPastHero ? '#ffffff' : '#F4EEE4',
+              transition: 'color 0.3s ease',
+            }}
           >
             CBW Studio.
           </a>
@@ -113,9 +134,25 @@ export default function Navbar() {
               gap: '5px',
             }}
           >
-            <span style={{ display: 'block', width: '24px', height: '1.5px', background: '#ffffff', transformOrigin: 'center', transform: open ? 'rotate(45deg) translate(4.5px, 4.5px)' : 'none', transition: 'transform 0.3s ease' }} />
-            <span style={{ display: 'block', width: '24px', height: '1.5px', background: '#ffffff', opacity: open ? 0 : 1, transition: 'opacity 0.2s ease' }} />
-            <span style={{ display: 'block', width: '24px', height: '1.5px', background: '#ffffff', transformOrigin: 'center', transform: open ? 'rotate(-45deg) translate(4.5px, -4.5px)' : 'none', transition: 'transform 0.3s ease' }} />
+            {[
+              open ? 'rotate(45deg) translate(4.5px, 4.5px)' : 'none',
+              null,
+              open ? 'rotate(-45deg) translate(4.5px, -4.5px)' : 'none',
+            ].map((transform, i) => (
+              <span
+                key={i}
+                style={{
+                  display: 'block',
+                  width: '24px',
+                  height: '1.5px',
+                  background: isPastHero ? '#ffffff' : '#F4EEE4',
+                  transformOrigin: 'center',
+                  ...(transform !== null ? { transform } : {}),
+                  opacity: i === 1 && open ? 0 : 1,
+                  transition: i === 1 ? 'opacity 0.2s ease, background 0.3s ease' : 'transform 0.3s ease, background 0.3s ease',
+                }}
+              />
+            ))}
           </button>
         </div>
       </header>

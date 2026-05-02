@@ -31,7 +31,7 @@ export default function Footer() {
               className="font-medium leading-snug"
               style={{
                 fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-                fontSize: '25px',
+                fontSize: 'clamp(18px, 2.5vw, 25px)',
                 color: '#1A1A17',
                 margin: 0,
               }}
