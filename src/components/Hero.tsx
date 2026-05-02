@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { openCal } from '@/lib/cal'
 
@@ -8,21 +8,75 @@ const WORDS = ['convertir.', 'performer.', 'dominer.', 'croître.']
 
 export default function Hero() {
   const [idx, setIdx] = useState(0)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const t = setInterval(() => setIdx((i) => (i + 1) % WORDS.length), 2800)
     return () => clearInterval(t)
   }, [])
 
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    let rafId: number
+    let lastTime: number | null = null
+
+    const playReverse = (now: number) => {
+      if (lastTime !== null) {
+        const delta = (now - lastTime) / 1000
+        video.currentTime = Math.max(0, video.currentTime - delta)
+        if (video.currentTime <= 0) {
+          lastTime = null
+          video.play()
+          return
+        }
+      }
+      lastTime = now
+      rafId = requestAnimationFrame(playReverse)
+    }
+
+    const handleEnded = () => {
+      lastTime = null
+      rafId = requestAnimationFrame(playReverse)
+    }
+
+    video.addEventListener('ended', handleEnded)
+    return () => {
+      video.removeEventListener('ended', handleEnded)
+      cancelAnimationFrame(rafId)
+    }
+  }, [])
+
   return (
     <section
-      className="bg-noir flex flex-col"
-      style={{ height: '100vh' }}
+      className="relative flex flex-col overflow-hidden"
+      style={{ height: '100vh', background: '#0A0A0A' }}
     >
-      <div style={{ height: '88px', flexShrink: 0 }} />
+      {/* Video background */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ opacity: 0.55 }}
+      >
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
+
+      {/* Gradient overlay bottom → top for text readability */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.3) 60%, rgba(10,10,10,0.1) 100%)',
+        }}
+      />
+
+      <div className="relative z-10" style={{ height: '88px', flexShrink: 0 }} />
 
       <div
-        className="flex-1 flex flex-col justify-end px-mob"
+        className="relative z-10 flex-1 flex flex-col justify-end px-mob"
         style={{ padding: '0 50px 10vh' }}
       >
         <h1

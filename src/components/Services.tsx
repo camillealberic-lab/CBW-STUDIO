@@ -69,7 +69,7 @@ export default function Services() {
                     className="font-normal relative inline-block"
                     style={{
                       fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-                      fontSize: '20px',
+                      fontSize: '17px',
                       color: '#F4EEE4',
                     }}
                     animate={{ opacity: hovered !== null && hovered !== i ? 0.7 : 1 }}
@@ -110,7 +110,7 @@ export default function Services() {
             ))}
           </div>
 
-          <div className="flex gap-3 mt-10">
+          <div className="flex flex-col gap-3 mt-10 items-start">
             <button
               onClick={openCal}
               className="bg-jaune text-noir font-normal rounded-full leading-none btn-primary"
