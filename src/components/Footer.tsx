@@ -40,7 +40,7 @@ export default function Footer() {
             </h3>
           </div>
           <CalButton
-            className="bg-jaune text-noir font-normal rounded-full leading-none w-fit"
+            className="bg-jaune text-noir font-normal rounded-full leading-none w-fit btn-primary"
             style={{
               fontFamily: 'var(--font-geologica), system-ui, sans-serif',
               fontSize: '16px',

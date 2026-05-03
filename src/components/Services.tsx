@@ -110,7 +110,7 @@ export default function Services() {
             ))}
           </div>
 
-          <div className="flex flex-col gap-3 mt-10 items-start">
+          <div className="flex flex-col md:flex-row gap-3 mt-10 items-start">
             <button
               onClick={openCal}
               className="bg-jaune text-noir font-normal rounded-full leading-none btn-primary"
