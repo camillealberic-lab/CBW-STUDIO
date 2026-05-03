@@ -13,13 +13,16 @@ export default function CtaBanner() {
   return (
     <section
       ref={ref}
-      className="bg-noir text-center pt-4 pb-[140px] px-[25px] md:pt-[120px] md:px-[50px]"
-      style={{ borderTop: '1px solid rgba(240,234,224,0.07)' }}
+      className="bg-noir text-center"
+      style={{
+        padding: '120px 50px 140px',
+        borderTop: '1px solid rgba(240,234,224,0.07)',
+      }}
     >
-      <div className="flex flex-col items-center gap-4 md:gap-10 max-w-4xl mx-auto">
+      <div className="flex flex-col items-center gap-10 max-w-4xl mx-auto">
 
         <motion.p
-          className="hidden md:block font-playfair italic leading-none"
+          className="font-playfair italic leading-none"
           style={{ fontSize: '18px', color: '#F4EEE4' }}
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
