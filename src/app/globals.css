@@ -2,7 +2,7 @@
 
 @theme {
   --color-noir: #1a1a17;
-  --color-creme: #f0eae0;
+  --color-creme: #f4eee4;
   --color-jaune: #f6f5ae;
   --color-blanc: #fafaf8;
 }
@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  background-color: #f0eae0;
+  background-color: #f4eee4;
   color: #1a1a17;
   font-family: var(--font-geologica), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
