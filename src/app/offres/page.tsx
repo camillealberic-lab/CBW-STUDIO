@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { openCal } from '@/lib/cal'
 import Navbar from '@/components/Navbar'
+import PageHero from '@/components/PageHero'
 import CtaBannerReveal from '@/components/CtaBannerReveal'
 import Footer from '@/components/Footer'
 import FooterParallax from '@/components/FooterParallax'
@@ -90,16 +91,7 @@ export default function OffresPage() {
       <div className="relative" style={{ zIndex: 1 }}>
         <Navbar />
 
-        {/* Hero — noir, compact */}
-        <section className="bg-noir page-hero">
-          <h1
-            className="font-bold leading-[1.05]"
-            style={{ fontFamily: FONT, fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', color: '#F4EEE4' }}
-          >
-            Choisissez votre niveau{' '}
-            <span className="font-playfair italic text-jaune">d'ambition.</span>
-          </h1>
-        </section>
+        <PageHero prefix="Choisissez votre niveau" highlight="d'ambition." />
 
         {/* Offres — 3 cards */}
         <section id="offres" className="px-mob" style={{ padding: '96px 50px', backgroundColor: '#F4EEE4' }}>
@@ -240,13 +232,15 @@ export default function OffresPage() {
                       key={step.num}
                       style={{ borderBottom: '1px solid rgba(244,238,228,0.1)' }}
                     >
-                      {/* Row — clickable */}
-                      <div
-                        className="flex items-center justify-between py-6"
-                        style={{ cursor: 'pointer' }}
+                      {/* Row — interactive: use <button> not <div> so it's keyboard-navigable */}
+                      <button
+                        type="button"
+                        className="flex items-center justify-between py-6 w-full text-left"
+                        style={{ cursor: 'pointer', background: 'none', border: 'none', padding: '24px 0' }}
                         onClick={() => setExpandedProcess(isExpanded ? null : i)}
                         onMouseEnter={() => setHoveredProcess(i)}
                         onMouseLeave={() => setHoveredProcess(null)}
+                        aria-expanded={isExpanded}
                       >
                         <div className="flex items-center gap-5">
                           <div
@@ -291,7 +285,7 @@ export default function OffresPage() {
                             <path d="M10 13h6M13 10.5l2.5 2.5-2.5 2.5" stroke="#F4EEE4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </motion.div>
-                      </div>
+                      </button>
 
                       {/* Expandable description */}
                       <AnimatePresence initial={false}>

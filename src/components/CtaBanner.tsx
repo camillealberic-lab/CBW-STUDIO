@@ -2,9 +2,10 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { openCal } from '@/lib/cal'
+import PrimaryButton from './ui/PrimaryButton'
 
-const FONT = 'var(--font-geologica), system-ui, sans-serif'
+// motion() wraps the forwardRef PrimaryButton so Framer Motion can animate it directly.
+const MotionPrimaryButton = motion(PrimaryButton)
 
 export default function CtaBanner() {
   const ref = useRef<HTMLElement>(null)
@@ -43,22 +44,13 @@ export default function CtaBanner() {
           </motion.h2>
         </div>
 
-        <motion.button
-          onClick={openCal}
-          className="bg-jaune text-noir font-normal rounded-full leading-none btn-primary"
-          style={{
-            fontFamily: FONT,
-            fontSize: '16px',
-            padding: '17px 32px',
-            border: 'none',
-            cursor: 'pointer',
-          }}
+        <MotionPrimaryButton
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
         >
           Contactez-nous
-        </motion.button>
+        </MotionPrimaryButton>
       </div>
     </section>
   )

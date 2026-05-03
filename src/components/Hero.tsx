@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { openCal } from '@/lib/cal'
+import PrimaryButton from './ui/PrimaryButton'
+import OutlineCta from './ui/OutlineCta'
 
 const WORDS = ['convertir.', 'performer.', 'dominer.', 'croître.']
 
@@ -18,6 +19,14 @@ export default function Hero() {
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
+
+    // For users with prefers-reduced-motion, skip the RAF-based reverse loop —
+    // manually decrementing currentTime at 60fps is CPU-heavy on lower-end devices
+    // and disorienting for vestibular disorders.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      video.loop = true
+      return
+    }
 
     let rafId: number
     let lastTime: number | null = null
@@ -54,11 +63,13 @@ export default function Hero() {
       style={{ height: '100vh', background: '#0A0A0A' }}
     >
       {/* Video background */}
+      {/* poster prevents a flash of black before the first video frame is decoded */}
       <video
         ref={videoRef}
         autoPlay
         muted
         playsInline
+        poster="/hero-poster.webp"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ opacity: 0.55 }}
       >
@@ -105,33 +116,8 @@ export default function Hero() {
         </h1>
 
         <div className="flex gap-3 flex-wrap justify-start">
-          <button
-            onClick={openCal}
-            className="bg-jaune text-noir font-normal rounded-full leading-none btn-primary"
-            style={{
-              fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-              fontSize: '16px',
-              padding: '17px 32px',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            Commencer un projet
-          </button>
-          <a
-            href="/offres"
-            className="font-normal rounded-full leading-none btn-outline"
-            style={{
-              fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-              fontSize: '16px',
-              padding: '17px 32px',
-              background: 'transparent',
-              boxShadow: 'inset 0 0 0 3px #F6F5AE',
-              color: '#F6F5AE',
-            }}
-          >
-            Voir nos offres
-          </a>
+          <PrimaryButton>Commencer un projet</PrimaryButton>
+          <OutlineCta href="/offres">Voir nos offres</OutlineCta>
         </div>
       </div>
     </section>
