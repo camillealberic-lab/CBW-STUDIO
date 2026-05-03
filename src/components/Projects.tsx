@@ -1,9 +1,9 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
-
-const FONT = 'var(--font-geologica), system-ui, sans-serif'
+import { FONT } from '@/lib/fonts'
 
 const LABEL = 'Agence en lancement — 3 projets à tarif découverte disponibles.'
 
@@ -21,16 +21,17 @@ const CARD_H = 360
 const CARD_RADIUS = 13
 const GAP = 24
 const PL = 50
-const VIEWPORT_W = 1512
 
+// Total pixel width of all cards laid side-by-side (including gaps between them)
 const TOTAL_W = PROJECTS.length * CARD_W + (PROJECTS.length - 1) * GAP
-const SCROLL_DIST = TOTAL_W + PL * 2 - VIEWPORT_W
 
+// Default scroll distance based on a 1512px viewport (used as SSR/initial fallback).
+// Updated reactively via ResizeObserver once the component mounts.
+const DEFAULT_SCROLL_DIST = Math.max(0, TOTAL_W + PL * 2 - 1512)
+
+// Next.js <Image fill> handles position/inset/width/height automatically.
+// We only add the visual treatment via style prop.
 const IMG_STYLE = {
-  position: 'absolute' as const,
-  inset: 0,
-  width: '100%',
-  height: '100%',
   objectFit: 'cover' as const,
   transform: 'scale(1.08)',
   filter: 'blur(22px) brightness(0.5)',
@@ -57,15 +58,32 @@ const LABEL_STYLE = {
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
   const mobileImgRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  // scrollDist must reflect the actual viewport width, not a magic constant.
+  // We update it via ResizeObserver so it stays correct on resize and on all screen sizes.
+  const [scrollDist, setScrollDist] = useState(DEFAULT_SCROLL_DIST)
+
+  useEffect(() => {
+    const el = trackRef.current
+    if (!el) return
+    const update = () => {
+      setScrollDist(Math.max(0, TOTAL_W + PL - el.offsetWidth))
+    }
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   })
 
-  // Desktop: horizontal translation
-  const x = useTransform(scrollYProgress, [0, 0.08, 1], [0, 0, -SCROLL_DIST])
+  // Desktop: horizontal translation — driven by the dynamic scrollDist
+  const x = useTransform(scrollYProgress, [0, 0.08, 1], [0, 0, -scrollDist])
 
   // Mobile: IntersectionObserver — each image fades+slides in as it enters viewport
   useEffect(() => {
@@ -96,7 +114,7 @@ export default function Projects() {
       id="projets"
       className="bg-creme mob-height-auto"
       style={{
-        height: `calc(100vh + ${SCROLL_DIST}px)`,
+        height: `calc(100vh + ${scrollDist}px)`,
         borderRadius: '40px 40px 0 0',
       }}
     >
@@ -135,7 +153,7 @@ export default function Projects() {
         </div>
 
         {/* ── DESKTOP: horizontal scroll ── */}
-        <div className="hidden md:flex flex-1 items-center overflow-hidden">
+        <div ref={trackRef} className="hidden md:flex flex-1 items-center overflow-hidden">
           <motion.div
             className="flex items-start"
             style={{ x, paddingLeft: PL, gap: GAP }}
@@ -156,8 +174,13 @@ export default function Projects() {
                     backgroundColor: 'rgba(26,26,23,0.08)',
                   }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={project.img} alt="" style={IMG_STYLE} />
+                  <Image
+                    src={project.img}
+                    alt=""
+                    fill
+                    sizes="566px"
+                    style={IMG_STYLE}
+                  />
                   <div style={OVERLAY_STYLE}>
                     <p style={LABEL_STYLE}>{LABEL}</p>
                   </div>
@@ -186,8 +209,13 @@ export default function Projects() {
               backgroundColor: 'rgba(26,26,23,0.08)',
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={project.img} alt="" style={IMG_STYLE} />
+            <Image
+              src={project.img}
+              alt=""
+              fill
+              sizes="(max-width: 767px) calc(100vw - 40px), 566px"
+              style={IMG_STYLE}
+            />
             <div style={OVERLAY_STYLE}>
               <p style={LABEL_STYLE}>{LABEL}</p>
             </div>

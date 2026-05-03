@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar'
+import PageHero from '@/components/PageHero'
 import CtaBannerReveal from '@/components/CtaBannerReveal'
 import Footer from '@/components/Footer'
 import FooterParallax from '@/components/FooterParallax'
@@ -57,15 +58,7 @@ export default function MentionsLegalesPage() {
       <div className="relative" style={{ zIndex: 1 }}>
         <Navbar />
 
-        <section className="bg-noir" style={{ padding: '130px 50px 48px' }}>
-          <h1
-            className="font-bold leading-[1.05]"
-            style={{ fontFamily: FONT, fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', color: '#F4EEE4' }}
-          >
-            Mentions{' '}
-            <span className="font-playfair italic text-jaune">légales.</span>
-          </h1>
-        </section>
+        <PageHero prefix="Mentions" highlight="légales." />
 
         <main style={{ backgroundColor: '#F4EEE4' }}>
           <div style={{ padding: '80px 50px 120px', maxWidth: '760px' }}>

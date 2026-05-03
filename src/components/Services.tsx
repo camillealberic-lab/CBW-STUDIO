@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { openCal } from '@/lib/cal'
+import PrimaryButton from './ui/PrimaryButton'
+import OutlineCta from './ui/OutlineCta'
 
 const SERVICES = [
   { num: '1', title: 'Analyse marketing', href: '/services#analyse-marketing' },
@@ -111,33 +112,8 @@ export default function Services() {
           </div>
 
           <div className="flex flex-col md:flex-row gap-3 mt-10 items-start">
-            <button
-              onClick={openCal}
-              className="bg-jaune text-noir font-normal rounded-full leading-none btn-primary"
-              style={{
-                fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-                fontSize: '16px',
-                padding: '17px 32px',
-                border: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              Contactez-nous
-            </button>
-            <a
-              href="/offres"
-              className="font-normal rounded-full leading-none btn-outline"
-              style={{
-                fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-                fontSize: '16px',
-                padding: '17px 32px',
-                background: 'transparent',
-                boxShadow: 'inset 0 0 0 3px #F6F5AE',
-                color: '#F6F5AE',
-              }}
-            >
-              Voir nos offres
-            </a>
+            <PrimaryButton>Contactez-nous</PrimaryButton>
+            <OutlineCta href="/offres">Voir nos offres</OutlineCta>
           </div>
         </div>
       </div>

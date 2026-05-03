@@ -1,8 +1,16 @@
+import type { Metadata } from 'next'
+import Image from 'next/image'
 import Navbar from '@/components/Navbar'
+import PageHero from '@/components/PageHero'
 import ValuesScroll from '@/components/ValuesScroll'
 import CtaBannerReveal from '@/components/CtaBannerReveal'
 import Footer from '@/components/Footer'
 import FooterParallax from '@/components/FooterParallax'
+
+export const metadata: Metadata = {
+  title: 'À propos — CBW Studio.',
+  description: 'Camille, designer et stratège digital indépendant : découvrez la mission, les valeurs et l\'approche de CBW Studio pour construire des présences digitales qui convertissent.',
+}
 
 const FONT = 'var(--font-geologica), system-ui, sans-serif'
 
@@ -12,20 +20,7 @@ export default function AProposPage() {
       <div className="relative" style={{ zIndex: 1 }}>
         <Navbar />
 
-        {/* Hero — noir, compact */}
-        <section className="bg-noir page-hero">
-          <h1
-            className="font-bold leading-[1.05]"
-            style={{
-              fontFamily: FONT,
-              fontSize: 'clamp(2.2rem, 4vw, 3.5rem)',
-              color: '#F4EEE4',
-            }}
-          >
-            Une agence taillée pour votre{' '}
-            <span className="font-playfair italic text-jaune">ambition.</span>
-          </h1>
-        </section>
+        <PageHero prefix="Une agence taillée pour votre" highlight="ambition." />
 
         {/* Mission */}
         <section className="bg-creme px-mob" style={{ paddingTop: '116px', paddingBottom: '40px', paddingLeft: '50px', paddingRight: '50px' }}>
@@ -101,19 +96,16 @@ export default function AProposPage() {
 
             {/* Right — photo + caption */}
             <div className="col-401">
-              <img
-                src="/Photo_profil.jpg"
-                alt="Camille"
-                style={{
-                  width: '100%',
-                  aspectRatio: '566 / 360',
-                  borderRadius: 13,
-                  objectFit: 'cover',
-                  objectPosition: 'center 15%',
-                  display: 'block',
-                  marginBottom: '14px',
-                }}
-              />
+              <div style={{ position: 'relative', width: '100%', aspectRatio: '566 / 360', borderRadius: 13, overflow: 'hidden', marginBottom: '14px' }}>
+                <Image
+                  src="/Photo_profil.jpg"
+                  alt="Camille, fondateur de CBW Studio"
+                  fill
+                  sizes="(max-width: 767px) 100vw, 401px"
+                  priority
+                  style={{ objectFit: 'cover', objectPosition: 'center 15%' }}
+                />
+              </div>
               <p style={{ fontFamily: FONT, fontSize: '16px', fontWeight: 600, color: '#F4EEE4', margin: '0 0 2px' }}>
                 Camille
               </p>

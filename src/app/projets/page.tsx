@@ -1,13 +1,23 @@
+import type { Metadata } from 'next'
+import Image from 'next/image'
 import Navbar from '@/components/Navbar'
+import PageHero from '@/components/PageHero'
 import CtaBannerReveal from '@/components/CtaBannerReveal'
 import Footer from '@/components/Footer'
 import FooterParallax from '@/components/FooterParallax'
 
+export const metadata: Metadata = {
+  title: 'Nos projets — CBW Studio.',
+  description: 'Découvrez les réalisations de CBW Studio : sites web haute performance pour artisans, producteurs locaux et marques ambitieuses.',
+}
+
 const FONT = 'var(--font-geologica), system-ui, sans-serif'
 
+// Blurred placeholder images — replace with real project photos when available.
+// Loaded at w=400 via Next.js sizes: the blur filter makes anything above ~200px indistinguishable.
 const BLURRY_IMAGES = [
-  'https://images.unsplash.com/photo-1547658719-da2b51169166?w=900&q=80',
-  'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=900&q=80',
+  'https://images.unsplash.com/photo-1547658719-da2b51169166',
+  'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d',
 ]
 
 export default function ProjetsPage() {
@@ -15,16 +25,7 @@ export default function ProjetsPage() {
     <div style={{ backgroundColor: '#F4EEE4' }}>
       <div className="relative" style={{ zIndex: 1 }}>
         <Navbar />
-
-        <section className="bg-noir page-hero">
-          <h1
-            className="font-bold leading-[1.05]"
-            style={{ fontFamily: FONT, fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', color: '#F4EEE4' }}
-          >
-            Tous nos{' '}
-            <span className="font-playfair italic text-jaune">projets.</span>
-          </h1>
-        </section>
+        <PageHero prefix="Tous nos" highlight="projets." />
 
         <main className="px-mob" style={{ padding: '80px 50px 100px', backgroundColor: '#F4EEE4' }}>
           <div
@@ -46,21 +47,17 @@ export default function ProjetsPage() {
                   backgroundColor: 'rgba(26,26,23,0.05)',
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={src}
                   alt=""
+                  fill
+                  sizes="(max-width: 767px) calc(100vw - 40px), calc(50vw - 62px)"
                   style={{
-                    position: 'absolute',
-                    inset: 0,
-                    width: '100%',
-                    height: '100%',
                     objectFit: 'cover',
                     transform: 'scale(1.08)',
                     filter: 'blur(28px) brightness(0.55)',
                   }}
                 />
-
                 <div
                   style={{
                     position: 'absolute',

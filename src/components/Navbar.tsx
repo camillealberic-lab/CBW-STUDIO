@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import CalButton from './CalButton'
-
-const FONT = 'var(--font-geologica), system-ui, sans-serif'
+import PrimaryButton from './ui/PrimaryButton'
+import { FONT } from '@/lib/fonts'
 
 const NAV_LINKS = [
   { label: 'Projets', href: '/projets' },
@@ -51,7 +51,7 @@ export default function Navbar() {
           className="flex items-center h-full"
           style={{ paddingLeft: '50px', paddingRight: '390px' }}
         >
-          <a
+          <Link
             href="/"
             className="font-bold leading-none pointer-events-auto"
             style={{
@@ -62,11 +62,11 @@ export default function Navbar() {
             }}
           >
             CBW Studio.
-          </a>
+          </Link>
 
           <nav className="ml-auto flex items-center pointer-events-auto" style={{ gap: '35px' }}>
             {NAV_LINKS.map(({ label, href }) => (
-              <a
+              <Link
                 key={href}
                 href={href}
                 className={`font-normal leading-none nav-link${pathname === href ? ' active' : ''}`}
@@ -78,7 +78,7 @@ export default function Navbar() {
                 }}
               >
                 {label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -88,12 +88,7 @@ export default function Navbar() {
         className="hidden md:flex fixed top-0 right-0 z-50 items-center"
         style={{ height: '100px', paddingRight: '50px' }}
       >
-        <CalButton
-          className="bg-jaune text-noir font-normal rounded-full leading-none btn-primary"
-          style={{ fontFamily: FONT, fontSize: '16px', padding: '17px 32px', border: 'none' }}
-        >
-          Commencer un projet
-        </CalButton>
+        <PrimaryButton>Commencer un projet</PrimaryButton>
       </div>
 
       {/* ── MOBILE HEADER ── */}
@@ -108,7 +103,7 @@ export default function Navbar() {
           className="flex items-center justify-between h-full"
           style={{ paddingLeft: '20px', paddingRight: '20px' }}
         >
-          <a
+          <Link
             href="/"
             className="font-bold leading-none"
             style={{
@@ -119,7 +114,7 @@ export default function Navbar() {
             }}
           >
             CBW Studio.
-          </a>
+          </Link>
 
           <button
             onClick={() => setOpen((v) => !v)}
@@ -171,24 +166,27 @@ export default function Navbar() {
             {/* Centered block, text left-aligned */}
             <nav style={{ display: 'flex', flexDirection: 'column', gap: '36px', width: '72vw', maxWidth: '300px' }}>
               {NAV_LINKS.map(({ label, href }, i) => (
-                <motion.a
+                <motion.div
                   key={href}
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className="font-bold leading-none"
-                  style={{
-                    fontFamily: FONT,
-                    fontSize: 'clamp(2.25rem, 10vw, 3.25rem)',
-                    color: '#F4EEE4',
-                    textDecoration: 'none',
-                    display: 'block',
-                  }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.05 + i * 0.07 }}
                 >
-                  {label}
-                </motion.a>
+                  <Link
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    className="font-bold leading-none"
+                    style={{
+                      fontFamily: FONT,
+                      fontSize: 'clamp(2.25rem, 10vw, 3.25rem)',
+                      color: '#F4EEE4',
+                      textDecoration: 'none',
+                      display: 'block',
+                    }}
+                  >
+                    {label}
+                  </Link>
+                </motion.div>
               ))}
             </nav>
           </motion.div>
@@ -206,18 +204,9 @@ export default function Navbar() {
             exit={{ x: 80, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <CalButton
-              className="bg-jaune text-noir font-normal rounded-full leading-none btn-primary"
-              style={{
-                fontFamily: FONT,
-                fontSize: '15px',
-                padding: '15px 28px',
-                border: 'none',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-              }}
-            >
+            <PrimaryButton size="sm" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
               Commencer un projet
-            </CalButton>
+            </PrimaryButton>
           </motion.div>
         )}
       </AnimatePresence>

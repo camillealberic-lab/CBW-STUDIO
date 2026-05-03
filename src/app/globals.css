@@ -11,12 +11,32 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Disable all CSS transitions/animations for users who request reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
   background-color: #f4eee4;
   color: #1a1a17;
   font-family: var(--font-geologica), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Browsers reset button/input font to system default — this inherits the body stack. */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }
 
 ::selection {

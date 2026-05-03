@@ -1,16 +1,24 @@
 import CalButton from './CalButton'
 
+// ─── SOCIAL LINKS ────────────────────────────────────────────────────────────
+// TODO: replace '#' with your actual social profile URLs before go-live.
+const SOCIAL_LINKS: Record<string, string> = {
+  Instagram: '#',
+  Facebook: '#',
+  LinkedIn: '#',
+}
+
 const LINKS: Record<string, { label: string; href: string }[]> = {
   "L'agence": [
     { label: 'Projets', href: '/projets' },
     { label: 'À propos', href: '/a-propos' },
   ],
   Services: [
-    { label: 'Analyse marketing', href: '/services' },
-    { label: 'Design', href: '/services' },
-    { label: 'Développement', href: '/services' },
-    { label: 'Maintenance', href: '/services' },
-    { label: 'Contact', href: '/commencer' },
+    { label: 'Analyse marketing', href: '/services#analyse-marketing' },
+    { label: 'Design', href: '/services#design' },
+    { label: 'Développement', href: '/services#developpement' },
+    { label: 'Maintenance', href: '/services#maintenance' },
+    { label: 'Offres', href: '/offres' },
   ],
   Légal: [
     { label: 'Politique de confidentialité', href: '/politique-de-confidentialite' },
@@ -102,14 +110,17 @@ export default function Footer() {
           CBW<span style={{ color: 'rgba(26,26,23,0.35)' }}>.</span>
         </span>
         <div className="flex items-center gap-6">
-          {['Instagram', 'Facebook', 'LinkedIn'].map((social) => (
+          {Object.entries(SOCIAL_LINKS).map(([platform, url]) => (
             <a
-              key={social}
-              href="#"
+              key={platform}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Suivez-nous sur ${platform}`}
               className="hover:opacity-60 transition-opacity"
               style={{ fontSize: '14px', color: '#1A1A17' }}
             >
-              {social}
+              {platform}
             </a>
           ))}
         </div>
