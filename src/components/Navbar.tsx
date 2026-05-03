@@ -17,24 +17,19 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [showMobileCta, setShowMobileCta] = useState(false)
   const [isPastHero, setIsPastHero] = useState(false)
-  const [inFooter, setInFooter] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
     const check = () => {
       const scrollY = window.scrollY
       const viewportH = window.innerHeight
+      const docH = document.documentElement.scrollHeight
 
       const inHero = pathname === '/' && scrollY < viewportH * 0.85
+      const inFooter = scrollY + viewportH > docH - 480
 
-      const spacer = document.getElementById('footer-spacer')
-      const footerZone = spacer
-        ? spacer.getBoundingClientRect().top < viewportH
-        : false
-
-      setShowMobileCta(!inHero && !footerZone)
+      setShowMobileCta(!inHero && !inFooter)
       setIsPastHero(!inHero)
-      setInFooter(footerZone)
     }
 
     check()
@@ -106,7 +101,7 @@ export default function Navbar() {
         className="md:hidden fixed top-0 left-0 right-0 z-50"
         style={{
           height: '64px',
-          mixBlendMode: inFooter ? 'normal' : isPastHero ? 'difference' : 'normal',
+          mixBlendMode: isPastHero ? 'difference' : 'normal',
         }}
       >
         <div
@@ -119,7 +114,7 @@ export default function Navbar() {
             style={{
               fontFamily: FONT,
               fontSize: '22px',
-              color: inFooter ? '#1A1A17' : isPastHero ? '#ffffff' : '#F4EEE4',
+              color: isPastHero ? '#ffffff' : '#F4EEE4',
               transition: 'color 0.3s ease',
             }}
           >
@@ -150,7 +145,7 @@ export default function Navbar() {
                   display: 'block',
                   width: '24px',
                   height: '1.5px',
-                  background: inFooter ? '#1A1A17' : isPastHero ? '#ffffff' : '#F4EEE4',
+                  background: isPastHero ? '#ffffff' : '#F4EEE4',
                   transformOrigin: 'center',
                   ...(transform !== null ? { transform } : {}),
                   opacity: i === 1 && open ? 0 : 1,
