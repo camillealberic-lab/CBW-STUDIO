@@ -22,8 +22,7 @@ export default function Footer() {
   return (
     <footer id="contact" style={{ backgroundColor: '#F4EEE4' }}>
       <div
-        className="grid grid-cols-1 lg:grid-cols-2 gap-16"
-        style={{ padding: '130px 50px 110px' }}
+        className="grid grid-cols-1 lg:grid-cols-2 gap-16 pt-[130px] px-[50px] pb-10 lg:pb-[110px]"
       >
         <div className="flex flex-col gap-6">
           <div>
