@@ -24,10 +24,13 @@ export default function Navbar() {
     const check = () => {
       const scrollY = window.scrollY
       const viewportH = window.innerHeight
-      const docH = document.documentElement.scrollHeight
 
       const inHero = pathname === '/' && scrollY < viewportH * 0.85
-      const footerZone = scrollY + viewportH > docH - 480
+
+      const spacer = document.getElementById('footer-spacer')
+      const footerZone = spacer
+        ? spacer.getBoundingClientRect().top < viewportH
+        : false
 
       setShowMobileCta(!inHero && !footerZone)
       setIsPastHero(!inHero)

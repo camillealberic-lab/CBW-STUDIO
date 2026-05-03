@@ -21,7 +21,7 @@ export default function FooterParallax({ children }: { children: React.ReactNode
 
   return (
     <>
-      <div ref={spacerRef} style={{ height: footerH, backgroundColor: '#F4EEE4' }} aria-hidden />
+      <div id="footer-spacer" ref={spacerRef} style={{ height: footerH, backgroundColor: '#F4EEE4' }} aria-hidden />
 
       <div className="fixed bottom-0 left-0 right-0" style={{ zIndex: 0, backgroundColor: '#F4EEE4' }}>
         <motion.div ref={wrapperRef} style={{ y, backgroundColor: '#F4EEE4' }}>
