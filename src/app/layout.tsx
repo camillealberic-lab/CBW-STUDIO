@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   title: "CBW Studio. — Architecte Digital",
   description:
     "Nous aidons les artisans et producteurs locaux à transformer leur savoir-faire en chiffre d'affaires grâce à des écosystèmes digitaux ultra-performants.",
+  icons: { icon: '/Favicon.png' },
 };
 
 export default function RootLayout({

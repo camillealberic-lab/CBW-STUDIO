@@ -110,10 +110,10 @@ export default function Projects() {
           style={{ paddingTop: '110px', paddingBottom: '20px', flexShrink: 0 }}
         >
           <p
-            className="font-medium leading-tight indent-right-401 mob-ml-50"
+            className="font-medium leading-tight indent-right-401"
             style={{
               fontFamily: FONT,
-              fontSize: 'clamp(24px, 2.3vw, 35px)',
+              fontSize: '35px',
               color: '#1A1A17',
               marginBottom: 0,
             }}
@@ -124,7 +124,7 @@ export default function Projects() {
             className="font-medium leading-tight desk-ml-50 mob-mt-16"
             style={{
               fontFamily: FONT,
-              fontSize: 'clamp(24px, 2.3vw, 35px)',
+              fontSize: '35px',
               color: '#1A1A17',
               marginTop: 0,
             }}

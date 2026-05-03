@@ -194,4 +194,9 @@ body {
   .mob-mt-16 {
     margin-top: 0 !important;
   }
+
+  /* Hero — push text content lower on mobile */
+  .mob-hero-pb {
+    padding-bottom: 6vh !important;
+  }
 }

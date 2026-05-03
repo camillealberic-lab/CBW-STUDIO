@@ -76,11 +76,11 @@ export default function Hero() {
       <div className="relative z-10" style={{ height: '88px', flexShrink: 0 }} />
 
       <div
-        className="relative z-10 flex-1 flex flex-col justify-end px-mob"
-        style={{ padding: '0 50px 10vh' }}
+        className="relative z-10 flex-1 flex flex-col justify-end px-mob mob-hero-pb"
+        style={{ padding: '0 50px 5vh' }}
       >
         <h1
-          className="text-creme font-bold leading-[1.05] mb-4 md:mb-8 text-left"
+          className="text-creme font-bold leading-[1.05] mb-2 md:mb-3 text-left"
           style={{
             fontFamily: 'var(--font-geologica), system-ui, sans-serif',
             fontSize: 'clamp(3.125rem, 7vw, 5.625rem)',
