@@ -20,7 +20,7 @@ const LINKS: Record<string, { label: string; href: string }[]> = {
 
 export default function Footer() {
   return (
-    <footer id="contact" style={{ backgroundColor: '#1A1A17' }}>
+    <footer id="contact" style={{ backgroundColor: '#F4EEE4' }}>
       <div
         className="grid grid-cols-1 lg:grid-cols-2 gap-16 pt-[130px] px-[25px] lg:px-[50px] pb-10 lg:pb-[110px]"
       >
@@ -31,7 +31,7 @@ export default function Footer() {
               style={{
                 fontFamily: 'var(--font-geologica), system-ui, sans-serif',
                 fontSize: 'clamp(18px, 2.5vw, 25px)',
-                color: '#F4EEE4',
+                color: '#1A1A17',
                 margin: 0,
               }}
             >
@@ -61,7 +61,7 @@ export default function Footer() {
                 style={{
                   fontFamily: 'var(--font-geologica), system-ui, sans-serif',
                   fontSize: '14px',
-                  color: '#F4EEE4',
+                  color: '#1A1A17',
                 }}
               >
                 {category}
@@ -74,7 +74,7 @@ export default function Footer() {
                       className="hover:opacity-60 transition-opacity leading-none"
                       style={{
                         fontSize: '13px',
-                        color: '#F4EEE4',
+                        color: '#1A1A17',
                       }}
                     >
                       {link.label}
@@ -89,17 +89,17 @@ export default function Footer() {
 
       <div
         className="flex items-center justify-between py-5 px-[25px] lg:px-[50px]"
-        style={{ borderTop: '1px solid rgba(244,238,228,0.12)' }}
+        style={{ borderTop: '1px solid rgba(26,26,23,0.12)' }}
       >
         <span
           className="font-bold"
           style={{
             fontFamily: 'var(--font-geologica), system-ui, sans-serif',
             fontSize: '20px',
-            color: '#F4EEE4',
+            color: '#1A1A17',
           }}
         >
-          CBW<span style={{ color: 'rgba(244,238,228,0.35)' }}>.</span>
+          CBW<span style={{ color: 'rgba(26,26,23,0.35)' }}>.</span>
         </span>
         <div className="flex items-center gap-6">
           {['Instagram', 'Facebook', 'LinkedIn'].map((social) => (
@@ -107,7 +107,7 @@ export default function Footer() {
               key={social}
               href="#"
               className="hover:opacity-60 transition-opacity"
-              style={{ fontSize: '14px', color: '#F4EEE4' }}
+              style={{ fontSize: '14px', color: '#1A1A17' }}
             >
               {social}
             </a>
