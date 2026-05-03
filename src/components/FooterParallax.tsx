@@ -56,13 +56,17 @@ export default function FooterParallax({ children }: { children: React.ReactNode
         className="fixed left-0 right-0"
         style={
           isMobile
-            ? { top: '65px', bottom: 0, zIndex: 20, overflowY: 'auto' }
+            ? { top: '65px', bottom: 0, zIndex: 20, overflow: 'hidden', pointerEvents: 'none' }
             : { bottom: 0, zIndex: 0, backgroundColor: '#F4EEE4' }
         }
       >
         <motion.div
           ref={wrapperRef}
-          style={{ y: isMobile ? yMobile : yDesktop, backgroundColor: '#F4EEE4' }}
+          style={{
+            y: isMobile ? yMobile : yDesktop,
+            backgroundColor: '#F4EEE4',
+            ...(isMobile && { pointerEvents: 'auto' }),
+          }}
         >
           {children}
         </motion.div>

@@ -1,3 +1,5 @@
+'use client'
+
 import CtaBanner from './CtaBanner'
 
 export default function CtaBannerReveal() {
