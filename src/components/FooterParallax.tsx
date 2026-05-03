@@ -56,7 +56,7 @@ export default function FooterParallax({ children }: { children: React.ReactNode
         className="fixed left-0 right-0"
         style={
           isMobile
-            ? { top: '65px', bottom: 0, zIndex: 20, backgroundColor: '#F4EEE4', overflowY: 'auto' }
+            ? { top: '65px', bottom: 0, zIndex: 20, overflowY: 'auto' }
             : { bottom: 0, zIndex: 0, backgroundColor: '#F4EEE4' }
         }
       >
