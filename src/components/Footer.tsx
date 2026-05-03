@@ -22,7 +22,7 @@ export default function Footer() {
   return (
     <footer id="contact" style={{ backgroundColor: '#F4EEE4' }}>
       <div
-        className="grid grid-cols-1 lg:grid-cols-2 gap-16 pt-[130px] px-[50px] pb-10 lg:pb-[110px]"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-16 pt-[130px] px-[25px] lg:px-[50px] pb-10 lg:pb-[110px]"
       >
         <div className="flex flex-col gap-6">
           <div>
@@ -88,11 +88,8 @@ export default function Footer() {
       </div>
 
       <div
-        className="flex items-center justify-between"
-        style={{
-          padding: '20px 50px',
-          borderTop: '1px solid rgba(26,26,23,0.12)',
-        }}
+        className="flex items-center justify-between py-5 px-[25px] lg:px-[50px]"
+        style={{ borderTop: '1px solid rgba(26,26,23,0.12)' }}
       >
         <span
           className="font-bold"
