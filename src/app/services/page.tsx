@@ -4,13 +4,13 @@ import PageHero from '@/components/PageHero'
 import CtaBannerReveal from '@/components/CtaBannerReveal'
 import Footer from '@/components/Footer'
 import FooterParallax from '@/components/FooterParallax'
+import { FONT } from '@/lib/fonts'
 
 export const metadata: Metadata = {
   title: 'Nos services — CBW Studio.',
   description: 'Analyse marketing, design, développement et maintenance : des services pensés pour performer et transformer votre présence digitale en levier de croissance.',
 }
 
-const FONT = 'var(--font-geologica), system-ui, sans-serif'
 
 const SERVICES = [
   {

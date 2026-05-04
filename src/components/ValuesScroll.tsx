@@ -2,8 +2,8 @@
 
 import { useRef, useEffect } from 'react'
 import { useScroll } from 'framer-motion'
+import { FONT } from '@/lib/fonts'
 
-const FONT = 'var(--font-geologica), system-ui, sans-serif'
 
 const VALUES = [
   { num: '1', title: 'Transparence', desc: "Chaque décision est partagée avec vous. Pas de jargon, pas de boîte noire — une collaboration directe et honnête." },

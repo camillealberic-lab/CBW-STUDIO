@@ -5,13 +5,13 @@ import PageHero from '@/components/PageHero'
 import CtaBannerReveal from '@/components/CtaBannerReveal'
 import Footer from '@/components/Footer'
 import FooterParallax from '@/components/FooterParallax'
+import { FONT } from '@/lib/fonts'
 
 export const metadata: Metadata = {
   title: 'Nos projets — CBW Studio.',
   description: 'Découvrez les réalisations de CBW Studio : sites web haute performance pour artisans, producteurs locaux et marques ambitieuses.',
 }
 
-const FONT = 'var(--font-geologica), system-ui, sans-serif'
 
 // Blurred placeholder images — replace with real project photos when available.
 // Loaded at w=400 via Next.js sizes: the blur filter makes anything above ~200px indistinguishable.

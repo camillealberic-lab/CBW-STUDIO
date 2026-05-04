@@ -1,8 +1,8 @@
 'use client'
 
 import { openCal } from '@/lib/cal'
+import { FONT } from '@/lib/fonts'
 
-const FONT = 'var(--font-geologica), system-ui, sans-serif'
 
 export default function CalBooking() {
   return (

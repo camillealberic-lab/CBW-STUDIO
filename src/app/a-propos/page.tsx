@@ -6,13 +6,13 @@ import ValuesScroll from '@/components/ValuesScroll'
 import CtaBannerReveal from '@/components/CtaBannerReveal'
 import Footer from '@/components/Footer'
 import FooterParallax from '@/components/FooterParallax'
+import { FONT } from '@/lib/fonts'
 
 export const metadata: Metadata = {
   title: 'À propos — CBW Studio.',
   description: 'Camille, designer et stratège digital indépendant : découvrez la mission, les valeurs et l\'approche de CBW Studio pour construire des présences digitales qui convertissent.',
 }
 
-const FONT = 'var(--font-geologica), system-ui, sans-serif'
 
 export default function AProposPage() {
   return (

@@ -44,6 +44,15 @@ select {
   color: #1a1a17;
 }
 
+/* ── Global focus indicator (WCAG 2.4.7) ──
+   Replaces outline:none patterns. Only visible on keyboard navigation,
+   not on mouse click (:focus-visible). */
+*:focus-visible {
+  outline: 2px solid #f6f5ae;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 .font-playfair {
   font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
 }

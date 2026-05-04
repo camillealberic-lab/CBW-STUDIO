@@ -3,8 +3,8 @@ import PageHero from '@/components/PageHero'
 import CtaBannerReveal from '@/components/CtaBannerReveal'
 import Footer from '@/components/Footer'
 import FooterParallax from '@/components/FooterParallax'
+import { FONT } from '@/lib/fonts'
 
-const FONT = 'var(--font-geologica), system-ui, sans-serif'
 
 const SECTIONS = [
   {
