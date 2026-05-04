@@ -16,6 +16,6 @@ export function openCal() {
     return
   }
 
-  // Fallback: open in new tab
-  window.open(`https://cal.com/${CAL_LINK}`, '_blank')
+  // Fallback: open in new tab — noopener prevents tabnabbing attacks
+  window.open(`https://cal.com/${CAL_LINK}`, '_blank', 'noopener,noreferrer')
 }

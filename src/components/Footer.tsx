@@ -1,92 +1,81 @@
-import CalButton from './CalButton'
+import Link from 'next/link'
+import PrimaryButton from './ui/PrimaryButton'
+import { FONT } from '@/lib/fonts'
 
-// ─── SOCIAL LINKS ────────────────────────────────────────────────────────────
-// TODO: replace '#' with your actual social profile URLs before go-live.
-const SOCIAL_LINKS: Record<string, string> = {
-  Instagram: '#',
-  Facebook: '#',
-  LinkedIn: '#',
-}
+const SOCIAL_LINKS: { platform: string; url: string }[] = [
+  // TODO: replace '#' with real profile URLs before go-live.
+  { platform: 'Instagram', url: '#' },
+  { platform: 'Facebook',  url: '#' },
+  { platform: 'LinkedIn',  url: '#' },
+]
 
-const LINKS: Record<string, { label: string; href: string }[]> = {
-  "L'agence": [
-    { label: 'Projets', href: '/projets' },
-    { label: 'À propos', href: '/a-propos' },
-  ],
-  Services: [
-    { label: 'Analyse marketing', href: '/services#analyse-marketing' },
-    { label: 'Design', href: '/services#design' },
-    { label: 'Développement', href: '/services#developpement' },
-    { label: 'Maintenance', href: '/services#maintenance' },
-    { label: 'Offres', href: '/offres' },
-  ],
-  Légal: [
-    { label: 'Politique de confidentialité', href: '/politique-de-confidentialite' },
-    { label: 'Mentions légales', href: '/mentions-legales' },
-  ],
-}
+const LINKS: { category: string; items: { label: string; href: string }[] }[] = [
+  {
+    category: "L'agence",
+    items: [
+      { label: 'Projets',   href: '/projets' },
+      { label: 'À propos',  href: '/a-propos' },
+    ],
+  },
+  {
+    category: 'Services',
+    items: [
+      { label: 'Analyse marketing', href: '/services#analyse-marketing' },
+      { label: 'Design',            href: '/services#design' },
+      { label: 'Développement',     href: '/services#developpement' },
+      { label: 'Maintenance',       href: '/services#maintenance' },
+      { label: 'Offres',            href: '/offres' },
+    ],
+  },
+  {
+    category: 'Légal',
+    items: [
+      { label: 'Politique de confidentialité', href: '/politique-de-confidentialite' },
+      { label: 'Mentions légales',             href: '/mentions-legales' },
+    ],
+  },
+]
 
 export default function Footer() {
   return (
     <footer id="contact" style={{ backgroundColor: '#F4EEE4' }}>
-      <div
-        className="grid grid-cols-1 lg:grid-cols-2 gap-16 pt-[130px] px-[25px] lg:px-[50px] pb-10 lg:pb-[110px]"
-      >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 pt-[130px] px-[25px] lg:px-[50px] pb-10 lg:pb-[110px]">
         <div className="flex flex-col gap-6">
-          <div>
-            <h3
-              className="font-medium leading-snug"
-              style={{
-                fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-                fontSize: 'clamp(18px, 2.5vw, 25px)',
-                color: '#1A1A17',
-                margin: 0,
-              }}
-            >
-              Vous avez un projet à nous confier ?<br />
-              Nous sommes toujours disponibles pour en discuter.
-            </h3>
-          </div>
-          <CalButton
-            className="bg-jaune text-noir font-normal rounded-full leading-none w-fit btn-primary"
+          <h3
+            className="font-medium leading-snug"
             style={{
-              fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-              fontSize: '16px',
-              padding: '17px 32px',
-              border: 'none',
-              cursor: 'pointer',
+              fontFamily: FONT,
+              fontSize: 'clamp(18px, 2.5vw, 25px)',
+              color: '#1A1A17',
+              margin: 0,
             }}
           >
-            Contactez-nous
-          </CalButton>
+            Vous avez un projet à nous confier ?<br />
+            Nous sommes toujours disponibles pour en discuter.
+          </h3>
+          {/* PrimaryButton internally calls openCal — CalButton is redundant */}
+          <PrimaryButton className="w-fit">Contactez-nous</PrimaryButton>
         </div>
 
         <div className="grid grid-cols-3 gap-8">
-          {Object.entries(LINKS).map(([category, links]) => (
+          {LINKS.map(({ category, items }) => (
             <div key={category} className="flex flex-col gap-4">
               <h4
                 className="font-semibold"
-                style={{
-                  fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-                  fontSize: '14px',
-                  color: '#1A1A17',
-                }}
+                style={{ fontFamily: FONT, fontSize: '14px', color: '#1A1A17' }}
               >
                 {category}
               </h4>
               <ul className="flex flex-col gap-2.5">
-                {links.map((link) => (
+                {items.map((link) => (
                   <li key={link.label}>
-                    <a
+                    <Link
                       href={link.href}
                       className="hover:opacity-60 transition-opacity leading-none"
-                      style={{
-                        fontSize: '13px',
-                        color: '#1A1A17',
-                      }}
+                      style={{ fontSize: '13px', color: '#1A1A17' }}
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -101,16 +90,12 @@ export default function Footer() {
       >
         <span
           className="font-bold"
-          style={{
-            fontFamily: 'var(--font-geologica), system-ui, sans-serif',
-            fontSize: '20px',
-            color: '#1A1A17',
-          }}
+          style={{ fontFamily: FONT, fontSize: '20px', color: '#1A1A17' }}
         >
           CBW<span style={{ color: 'rgba(26,26,23,0.35)' }}>.</span>
         </span>
         <div className="flex items-center gap-6">
-          {Object.entries(SOCIAL_LINKS).map(([platform, url]) => (
+          {SOCIAL_LINKS.map(({ platform, url }) => (
             <a
               key={platform}
               href={url}
